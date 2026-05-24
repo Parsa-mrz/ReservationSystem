@@ -1,7 +1,7 @@
 <?php
 namespace App\Domain\Services\DTOs;
 
-use App\Domain\Services\Requests\StoreServiceRequest;
+use App\Http\Requests\Services\StoreServiceRequest;
 
 readonly class ServiceData{
     public function __construct(

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Domain\Services\Requests;
+namespace App\Http\Requests\Services;
 
-use App\Domain\Businesses\Models\Business;
+use App\Domain\Services\DTOs\ServiceData;
 use App\Domain\Services\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreServiceRequest extends FormRequest
 {
@@ -75,5 +74,10 @@ class StoreServiceRequest extends FormRequest
             decimal_separator: '.',
             thousands_separator: ''
         );
+    }
+
+    public function toDTO(): ServiceData
+    {
+        return  ServiceData::fromRequest($this);
     }
 }

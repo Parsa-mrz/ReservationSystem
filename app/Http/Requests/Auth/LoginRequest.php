@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Domain\Auth\Requests;
+namespace App\Http\Requests\Auth;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Domain\Auth\DTOs\LoginData;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,30 +16,23 @@ class RegisterRequest extends FormRequest
     }
 
     /**
-     * @return array<string, array<int, mixed>>
+     * @return array<string, array<int, string>>
      */
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'min:2',
-                'max:100',
-            ],
-
             'email' => [
                 'required',
                 'string',
                 'email:rfc',
                 'max:255',
-                'unique:users,email',
             ],
 
             'password' => [
                 'required',
                 'string',
-                Password::defaults(),
+                'min:8',
+                'max:255',
             ],
         ];
     }
@@ -48,15 +40,22 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.unique' => 'This email is already registered.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Invalid email format.',
+
+            'password.required' => 'Password is required.',
         ];
     }
 
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'name' => trim($this->name),
             'email' => strtolower(trim($this->email)),
         ]);
+    }
+
+    public function toDTO(): LoginData
+    {
+        return LoginData::fromRequest($this);
     }
 }

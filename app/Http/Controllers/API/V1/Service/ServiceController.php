@@ -4,13 +4,11 @@ namespace App\Http\Controllers\API\V1\Service;
 
 use App\Domain\Businesses\Models\Business;
 use App\Domain\Services\Actions\CreateServiceAction;
-use App\Domain\Services\DTOs\ServiceData;
 use App\Domain\Services\Models\Service;
-use App\Domain\Services\Requests\StoreServiceRequest;
 use App\Domain\Services\Resources\ServiceResource;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Services\StoreServiceRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ServiceController extends Controller
@@ -41,7 +39,7 @@ class ServiceController extends Controller
 
 
         $service = $action->handle(
-            ServiceData::fromRequest($request),
+            $request->toDTO(),
             $business->id
         );
 

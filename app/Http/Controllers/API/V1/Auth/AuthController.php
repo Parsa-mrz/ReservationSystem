@@ -4,12 +4,10 @@ namespace App\Http\Controllers\API\V1\Auth;
 
 use App\Domain\Auth\Actions\LoginUserAction;
 use App\Domain\Auth\Actions\RegisterUserAction;
-use App\Domain\Auth\DTOs\LoginData;
-use App\Domain\Auth\DTOs\RegisterData;
-use App\Domain\Auth\Requests\LoginRequest;
-use App\Domain\Auth\Requests\RegisterRequest;
 use App\Domain\Users\Resources\UserResource;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +19,7 @@ class AuthController extends Controller
         RegisterUserAction $action
     ): JsonResponse {
 
-        $user = $action->handle(
-            RegisterData::fromRequest($request)
-        );
+        $user = $action->handle($request->toDTO());
 
         $token = $user->createToken('api')->plainTextToken;
 
@@ -42,9 +38,7 @@ class AuthController extends Controller
         LoginUserAction $action
     ): JsonResponse
     {
-        $user = $action->handle(
-            LoginData::fromRequest($request)
-        );
+        $user = $action->handle($request->toDTO());
 
         $token = $user->createToken('api')->plainTextToken;
 

@@ -2,7 +2,7 @@
 
 namespace  App\Domain\Auth\DTOs;
 
-use App\Domain\Auth\Requests\RegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 
 readonly class RegisterData
 {

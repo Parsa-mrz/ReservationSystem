@@ -2,7 +2,7 @@
 
 namespace  App\Domain\Auth\DTOs;
 
-use App\Domain\Auth\Requests\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
 
 readonly class LoginData{
     public function __construct(

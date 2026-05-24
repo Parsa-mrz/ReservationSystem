@@ -2,7 +2,7 @@
 
 namespace App\Domain\Businesses\DTOs;
 
-use App\Domain\Businesses\Requests\StoreBusinessRequest;
+use App\Http\Requests\Businesses\StoreBusinessRequest;
 
 readonly class BusinessData{
     public function __construct(

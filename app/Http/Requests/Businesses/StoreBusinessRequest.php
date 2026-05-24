@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Domain\Businesses\Requests;
+namespace App\Http\Requests\Businesses;
 
+use App\Domain\Businesses\DTOs\BusinessData;
 use App\Domain\Businesses\Models\Business;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -31,5 +32,9 @@ class StoreBusinessRequest extends FormRequest
             'city' => ['nullable', 'string'],
             'address' => ['nullable', 'string'],
         ];
+    }
+
+    public function toDTO():BusinessData{
+        return BusinessData::fromRequest($this);
     }
 }
