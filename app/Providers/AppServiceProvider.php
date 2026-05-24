@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Domain\Services\Models\Service;
+use App\Domain\Services\Policies\ServicePolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Domain\Businesses\Models\Business;
@@ -23,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Business::class,BusinessPolicy::class);
+        Gate::policy(Service::class,ServicePolicy::class);
     }
 }

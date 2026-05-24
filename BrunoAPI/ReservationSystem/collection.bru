@@ -8,5 +8,9 @@ auth:bearer {
 
 vars:pre-request {
   baseUrl: http://localhost:8000/api/v1
-  token: 
+  businessSlug: 
+  authUrl: {{baseUrl}}/auth
+  businessesUrl: {{baseUrl}}/businesses
+  businessId: 
+  servicesUrl: {{baseUrl}}/services
 }

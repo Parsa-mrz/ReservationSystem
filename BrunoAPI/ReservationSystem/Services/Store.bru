@@ -1,0 +1,25 @@
+meta {
+  name: Store
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{servicesUrl}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "business_id": {{businessId}},
+    "name": "Hair Cut",
+    "duration": 45,
+    "buffer_time": 10,
+    "price": 25
+  }
+}
+
+settings {
+  encodeUrl: true
+}
