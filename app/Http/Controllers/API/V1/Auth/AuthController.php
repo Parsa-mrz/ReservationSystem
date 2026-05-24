@@ -12,6 +12,7 @@ use App\Domain\Users\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -32,7 +33,7 @@ class AuthController extends Controller
                 'token' => $token
             ],
             message: 'Register successfully.',
-            status: 201
+            status: Response::HTTP_CREATED
         );
     }
 

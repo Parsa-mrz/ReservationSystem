@@ -2,12 +2,14 @@
 
 namespace App\Domain\Users\Models;
 
+use App\Domain\Businesses\Models\Business;
 use App\Domain\Users\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Console\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -37,5 +39,10 @@ class User extends Authenticatable {
     protected static function newFactory(): Factory|UserFactory
     {
         return UserFactory::new();
+    }
+
+    public function businesses(): HasMany
+    {
+        return $this->hasMany(Business::class,'owner_id');
     }
 }
