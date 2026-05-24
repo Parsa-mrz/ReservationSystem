@@ -7,4 +7,4 @@ down:
 remove:
 	docker-compose down -v
 migrate:
-	docker compose exec php artisan migrate
+	docker exec -it laravel_app php artisan migrate
