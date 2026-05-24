@@ -1,0 +1,15 @@
+meta {
+  name: Delete
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{businessesUrl}}/{{businessId}}/services/{{serviceId}}
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
