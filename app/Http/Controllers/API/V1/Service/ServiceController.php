@@ -54,7 +54,7 @@ class ServiceController extends Controller
         );
     }
 
-    public function destroy(Service $service){
+    public function destroy(Business $business, Service $service): JsonResponse{
         $service->delete();
         return $this->success(data:[],message: 'Service deleted successfully',status: Response::HTTP_NO_CONTENT);
     }

@@ -37,7 +37,7 @@ class ServicePolicy
      */
     public function update(User $user, Service $service): bool
     {
-        return $user->id === $service->business->owner_id;
+        return $this->ownsService($user, $service);
     }
 
     /**
@@ -45,7 +45,7 @@ class ServicePolicy
      */
     public function delete(User $user, Service $service): bool
     {
-        return $user->id === $service->business->owner_id;
+        return $this->ownsService($user, $service);
     }
 
     /**
@@ -61,6 +61,13 @@ class ServicePolicy
      */
     public function forceDelete(User $user, Service $service): bool
     {
-        return false;
+        return $this->ownsService($user, $service);
+    }
+
+    private function ownsService(
+        User $user,
+        Service $service
+    ): bool {
+        return $user->id === $service->business->owner_id;
     }
 }

@@ -104,5 +104,10 @@ Route::prefix('v1')->group(function () {
             ServiceController::class,
             'store',
         ]);
+
+        Route::delete('businesses/{business}/services/{service}', [
+            ServiceController::class,
+            'destroy'
+        ]);
     });
 });
