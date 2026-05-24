@@ -16,4 +16,11 @@ class UserController extends Controller
             'user' => UserResource::make($request->user()),
         ]);
     }
+
+    public function show(User $user)
+    {
+        return $this->success([
+            'user' => UserResource::make($user),
+        ]);
+    }
 }

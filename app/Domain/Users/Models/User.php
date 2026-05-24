@@ -6,6 +6,7 @@ use App\Domain\Users\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Console\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -32,4 +33,9 @@ class User extends Authenticatable {
             'role' => UserRole::class,
 		);
 	}
+
+    protected static function newFactory(): Factory|UserFactory
+    {
+        return UserFactory::new();
+    }
 }
