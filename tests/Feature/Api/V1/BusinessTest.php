@@ -60,7 +60,7 @@ class BusinessTest extends TestCase
     public function authenticated_user_can_create_business()
     {
         Sanctum::actingAs(
-            User::factory()->create()
+            User::factory()->owner()->create()
         );
 
         $payload = [
@@ -94,7 +94,7 @@ class BusinessTest extends TestCase
     #[Test]
     public function business_creation_requires_validation()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs(User::factory()->owner()->create());
 
         $response = $this->postJson('/api/v1/businesses', []);
 

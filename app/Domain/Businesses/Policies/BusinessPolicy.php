@@ -2,7 +2,7 @@
 
 namespace App\Domain\Businesses\Policies;
 
-use App\Business;
+use App\Domain\Businesses\Models\Business;
 use App\Domain\Users\Models\User;
 use Illuminate\Auth\Access\Response;
 
