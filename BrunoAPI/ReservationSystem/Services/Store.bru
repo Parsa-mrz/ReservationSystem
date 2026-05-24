@@ -37,20 +37,17 @@ script:post-response {
   // 3. Dig into the structure
   if (parsedBody && parsedBody.data) {
     
-    if (parsedBody.data.business && parsedBody.data.business.slug) {
-      const slug = parsedBody.data.business.slug;
-      const id = parsedBody.data.business.id;
+    if (parsedBody.data.service && parsedBody.data.service.id) {
+      const id = parsedBody.data.service.id;
       
       try {
-        bru.setVar("businessSlug", slug);
-        bru.setVar("businessId", id);
+        bru.setVar("serviceId", id);
       } catch (err) {
         console.error("[ERROR] Could not set Collection variable:", err.message);
       }
   
       try {
-        bru.setEnvVar("businessSlug", slug);
-        bru.setEnvVar("businessId", id);
+        bru.setEnvVar("serviceId", id);
       } catch (err) {
         console.error("[ERROR] Could not set Environment variable:", err.message);
       }

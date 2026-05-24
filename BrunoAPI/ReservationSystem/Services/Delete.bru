@@ -10,6 +10,49 @@ delete {
   auth: inherit
 }
 
+script:post-response {
+  
+  // 1. Grab the raw body
+  const rawBody = res.getBody();
+  
+  // 2. Parse the body safely
+  let parsedBody = rawBody;
+  if (typeof rawBody === 'string') {
+    try {
+      parsedBody = JSON.parse(rawBody);
+    } catch (e) {
+      console.error("[ERROR] Failed to parse body as JSON.", e.message);
+    }
+  }
+  
+  // 3. Dig into the structure
+  if (parsedBody && parsedBody.data) {
+    
+    if (parsedBody.data.business && parsedBody.data.business.slug) {
+      const slug = parsedBody.data.business.slug;
+      const id = parsedBody.data.business.id;
+      
+      try {
+        bru.setVar("businessSlug", slug);
+      } catch (err) {
+        console.error("[ERROR] Could not set Collection variable:", err.message);
+      }
+  
+      try {
+        bru.setEnvVar("businessSlug", slug);
+        bru.setEnvVar("businessId", id);
+      } catch (err) {
+        console.error("[ERROR] Could not set Environment variable:", err.message);
+      }
+  
+    } else {
+      console.error("[ERROR] The 'data' object exists, but 'token' is missing inside it.");
+    }
+  } else {
+    console.error("[ERROR] The 'data' object is missing from the parsed body altogether.");
+  }
+}
+
 settings {
   encodeUrl: true
 }

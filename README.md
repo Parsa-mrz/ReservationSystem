@@ -1,59 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏨 Reservation System API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP_8.3+-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Testing](https://img.shields.io/badge/PHPUnit-Tested-success?style=for-the-badge&logo=phpunit)
 
-## About Laravel
+A robust, highly-scalable RESTful API for managing businesses, services, and reservations. This project is built using modern **Domain-Driven Design (DDD)** principles on top of the Laravel framework, ensuring clean architecture, maintainability, and enterprise-grade code quality.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Domain-Driven Architecture**: Codebase is modularized into distinct domains (`Auth`, `Businesses`, `Services`, `Reservations`, etc.) to separate concerns.
+- **Data Transfer Objects (DTOs)**: Enforces type safety and predictable data structures between the HTTP and Domain layers.
+- **Action Classes**: Encapsulates core business logic into single-responsibility Action classes instead of bloated controllers.
+- **Modern PHP 8.3+**: Leverages the latest PHP features including attributes, strict typing, and readonly properties.
+- **Standardized API Responses**: Consistent JSON response structures across all endpoints.
+- **Comprehensive Test Suite**: Feature tests for all API endpoints to guarantee reliability.
 
-## Learning Laravel
+## 📁 Architecture Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Unlike standard Laravel applications, this project adopts a specialized structure to support scalability:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+app/
+├── Domain/              # Core business logic
+│   ├── Businesses/      # Business bounded context
+│   │   ├── Actions/     # Single-responsibility logic classes
+│   │   ├── DTOs/        # Data Transfer Objects
+│   │   ├── Models/      # Eloquent Models
+│   │   ├── Requests/    # Form Requests (Validation)
+│   │   └── Resources/   # API Resources
+│   ├── Services/        # Service bounded context
+│   └── Users/           # User bounded context
+├── Http/                # Infrastructure layer (Controllers, Middleware)
+├── Providers/           # Service Providers
+└── Support/             # Cross-domain helpers
+```
 
-## Laravel Sponsors
+## 🚀 Getting Started
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prerequisites
 
-### Premium Partners
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- Make (optional, but recommended for using the provided Makefile)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Installation (Docker)
 
-## Contributing
+1. **Clone the repository**
+   ```bash
+   git clone <your-repository-url>
+   cd ReservationSystem
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Set up your environment variables**
+   ```bash
+   cp .env.example .env
+   ```
 
-## Code of Conduct
+3. **Build and start the Docker containers**
+   ```bash
+   make build
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Run database migrations**
+   ```bash
+   make migrate
+   ```
+   *(Or use `make fresh` to run migrations with seeders)*
 
-## Security Vulnerabilities
+### Helpful Make Commands
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- `make build` - Build and start the containers (`docker-compose up -d --build`)
+- `make up` - Start the containers (`docker-compose up -d`)
+- `make down` - Stop the containers (`docker-compose down`)
+- `make remove` - Stop the containers and remove volumes (`docker-compose down -v`)
+- `make migrate` - Run migrations inside the container
+- `make fresh` - Refresh migrations and seed the database inside the container
 
-## License
+## 🧪 Testing
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The application is fully tested using PHPUnit. To run the test suite locally:
+
+```bash
+make test
+```
+
+## 🛣️ API Endpoints
+
+A quick overview of the available V1 endpoints:
+
+### Public
+- `POST /api/v1/auth/register` - Register a new user
+- `POST /api/v1/auth/login` - Authenticate a user
+- `GET /api/v1/businesses` - List businesses
+- `GET /api/v1/businesses/{slug}` - Get business details
+- `GET /api/v1/businesses/{business}/services` - List services for a business
+
+### Protected (Requires Sanctum Token)
+- `POST /api/v1/auth/logout` - Logout user
+- `GET /api/v1/user` - Get current user profile
+- `POST /api/v1/businesses` - Create a new business
+- `POST /api/v1/businesses/{business}/services` - Add a service to a business
+- `DELETE /api/v1/businesses/{business}/services/{service}` - Remove a service
+
+## 🛡️ License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
