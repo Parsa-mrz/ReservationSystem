@@ -8,3 +8,5 @@ remove:
 	docker-compose down -v
 migrate:
 	docker exec -it laravel_app php artisan migrate
+fresh:
+	docker exec -it laravel_app php artisan migrate:fresh --seed

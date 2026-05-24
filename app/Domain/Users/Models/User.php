@@ -45,4 +45,13 @@ class User extends Authenticatable {
     {
         return $this->hasMany(Business::class,'owner_id');
     }
+
+	public function isOwner(): bool 
+	{
+		return $this->role === UserRole::OWNER;
+	}
+
+	public function isAdmin():bool{
+		return $this->role === UserRole::ADMIN;
+	}
 }

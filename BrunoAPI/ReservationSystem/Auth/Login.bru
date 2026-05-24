@@ -12,9 +12,10 @@ post {
 
 body:json {
   {
-    "email": "parsa@gmail.com",
+    "email": "owner@example.com",
     "password": "12345678"
   }
+  
 }
 
 script:post-response {
@@ -60,4 +61,23 @@ script:post-response {
 
 settings {
   encodeUrl: true
+}
+
+docs {
+  {
+    "email": "admin@example.com",
+    "password": "12345678"
+  }
+  
+  
+  {
+    "email": "owner@example.com",
+    "password": "12345678"
+  }
+  
+  
+  {
+    "email": "client@example.com",
+    "password": "12345678"
+  }
 }

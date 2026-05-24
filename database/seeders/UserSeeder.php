@@ -17,18 +17,21 @@ class UserSeeder extends Seeder
         User::factory()->admin()->create([
             'name' => 'System Admin',
             'email' => 'admin@example.com',
+            'password' => '12345678',
         ]);
 
         // Owner
         User::factory()->owner()->create([
             'name' => 'Business Owner',
             'email' => 'owner@example.com',
+            'password' => '12345678',
         ]);
 
         // Client
         User::factory()->client()->create([
             'name' => 'Client User',
             'email' => 'client@example.com',
+            'password' => '12345678',
         ]);
     }
 }

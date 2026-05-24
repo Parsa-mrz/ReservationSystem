@@ -13,7 +13,7 @@ class CreateBusinessAction{
         BusinessData $data,
         User $owner
     ): Business {
-
+        
         if($owner->businesses()->exists()){
             abort(code:Response::HTTP_UNPROCESSABLE_ENTITY,message: 'Owner already has a business.');
         }
