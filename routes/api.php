@@ -6,42 +6,103 @@ use App\Http\Controllers\API\V1\Service\ServiceController;
 use App\Http\Controllers\API\V1\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group( function () {
+Route::prefix('v1')->group(function () {
 
-    // Public Routes
-    Route::controller(AuthController::class)->prefix('auth')->group(function () {
-        Route::post('register', 'register');
-        Route::post('login', 'login');
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication
+    |--------------------------------------------------------------------------
+    */
+
+    Route::prefix('auth')->group(function () {
+
+        Route::post('register', [
+            AuthController::class,
+            'register',
+        ]);
+
+        Route::post('login', [
+            AuthController::class,
+            'login',
+        ]);
     });
 
-    Route::controller(BusinessController::class)->prefix('businesses')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/{slug}', 'show');
-    });
+    /*
+    |--------------------------------------------------------------------------
+    | Public Businesses
+    |--------------------------------------------------------------------------
+    */
 
-    Route::controller(ServiceController::class)->group(function () {
-        Route::get('/businesses/{business}/services', 'index');
-    });
+    Route::get('businesses', [
+        BusinessController::class,
+        'index',
+    ]);
 
+    Route::get('businesses/{business:slug}', [
+        BusinessController::class,
+        'show',
+    ]);
 
-    // Protected Routes
+    /*
+    |--------------------------------------------------------------------------
+    | Public Services
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('businesses/{business}/services', [
+        ServiceController::class,
+        'index',
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Protected Routes
+    |--------------------------------------------------------------------------
+    */
+
     Route::middleware('auth:sanctum')->group(function () {
 
-        Route::controller(AuthController::class)->prefix('auth')->group(function () {
-            Route::post('logout', 'logout');
-        });
+        /*
+        |--------------------------------------------------------------------------
+        | Authenticated User
+        |--------------------------------------------------------------------------
+        */
 
-        Route::controller(UserController::class)->group(function () {
-            Route::get('user', 'me');
-            Route::get('users/{user}', 'show');
-        });
+        Route::post('auth/logout', [
+            AuthController::class,
+            'logout',
+        ]);
 
-        Route::controller(BusinessController::class)->prefix('businesses')->group(function () {
-            Route::post('/', 'store');
-        });
+        Route::get('user', [
+            UserController::class,
+            'me',
+        ]);
 
-        Route::controller(ServiceController::class)->prefix('services')->group(function () {
-            Route::post('/', 'store');
-        });
+        Route::get('users/{user}', [
+            UserController::class,
+            'show',
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Businesses
+        |--------------------------------------------------------------------------
+        */
+
+        Route::post('businesses', [
+            BusinessController::class,
+            'store',
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Services
+        |--------------------------------------------------------------------------
+        */
+
+        Route::post('businesses/{business}/services', [
+            ServiceController::class,
+            'store',
+        ]);
     });
 });

@@ -11,25 +11,12 @@ class StoreServiceRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $business = Business::query()
-            ->find($this->integer('business_id'));
-
-        return $business
-            && $this->user()->can(
-                'create',
-                [Service::class, $business]
-            );
+        return $this->user()->can('create', [Service::class,$this->route('business')]);
     }
 
     public function rules(): array
     {
         return [
-            'business_id' => [
-                'required',
-                'integer',
-                Rule::exists('businesses', 'id'),
-            ],
-
             'name' => [
                 'required',
                 'string',
