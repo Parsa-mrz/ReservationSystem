@@ -28,7 +28,6 @@ app/
 │   │   ├── Actions/     # Single-responsibility logic classes
 │   │   ├── DTOs/        # Data Transfer Objects
 │   │   ├── Models/      # Eloquent Models
-│   │   ├── Requests/    # Form Requests (Validation)
 │   │   └── Resources/   # API Resources
 │   ├── Services/        # Service bounded context
 │   └── Users/           # User bounded context
