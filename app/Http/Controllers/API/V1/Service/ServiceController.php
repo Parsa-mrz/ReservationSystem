@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\V1\Service;
 
 use App\Domain\Businesses\Models\Business;
-use App\Domain\Services\Actions\CreateServiceAction;
+use App\Domain\Services\Actions\Interfaces\CreatesService;
 use App\Domain\Services\Models\Service;
 use App\Domain\Services\Resources\ServiceResource;
 use App\Http\Controllers\Controller;
@@ -34,7 +34,7 @@ class ServiceController extends Controller
     public function store(
         StoreServiceRequest $request,
         Business $business,
-        CreateServiceAction $action
+        CreatesService $action
     ): JsonResponse {
 
 

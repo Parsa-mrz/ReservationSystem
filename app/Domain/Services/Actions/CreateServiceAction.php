@@ -2,10 +2,11 @@
 
 namespace App\Domain\Services\Actions;
 
+use App\Domain\Services\Actions\Interfaces\CreatesService;
 use App\Domain\Services\DTOs\ServiceData;
 use App\Domain\Services\Models\Service;
 
-class CreateServiceAction{
+class CreateServiceAction implements CreatesService{
     public function handle(
         ServiceData $data,
         int $businessId

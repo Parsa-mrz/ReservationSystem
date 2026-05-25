@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\V1\Business;
 
-use App\Domain\Businesses\Actions\CreateBusinessAction;
+use App\Domain\Businesses\Actions\Interfaces\CreatesBusiness;
 use App\Domain\Businesses\Models\Business;
 use App\Domain\Businesses\Resources\BusinessResource;
 use App\Http\Controllers\Controller;
@@ -23,7 +23,7 @@ class BusinessController extends Controller
         );
     }
 
-    public function store(StoreBusinessRequest $request,CreateBusinessAction $action):JsonResponse
+    public function store(StoreBusinessRequest $request, CreatesBusiness $action):JsonResponse
     {
         $business = $action->handle(
             $request->toDTO(),

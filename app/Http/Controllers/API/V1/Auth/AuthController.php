@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\V1\Auth;
 
-use App\Domain\Auth\Actions\LoginUserAction;
-use App\Domain\Auth\Actions\RegisterUserAction;
+use App\Domain\Auth\Actions\Interfaces\LoginUser;
+use App\Domain\Auth\Actions\Interfaces\RegistersUser;
 use App\Domain\Users\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -16,7 +16,7 @@ class AuthController extends Controller
 {
     public function register(
         RegisterRequest $request,
-        RegisterUserAction $action
+        RegistersUser $action
     ): JsonResponse {
 
         $user = $action->handle($request->toDTO());
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
     public function login(
         LoginRequest $request,
-        LoginUserAction $action
+        LoginUser $action
     ): JsonResponse
     {
         $user = $action->handle($request->toDTO());
